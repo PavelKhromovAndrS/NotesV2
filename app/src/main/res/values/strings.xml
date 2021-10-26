@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Notes2</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_button">+</string>
+    <string name="add_note">Добавить заметку</string>
+    <string name="add_name_of_note">add name of note</string>
+    <string name="add_text_of_note">add text of note</string>
+    <string name="add_note_name">Введите имя заметки</string>
+    <string name="add_note_text">Введите текст заметки</string>
+    <string name="button_text">+</string>
+</resources>
