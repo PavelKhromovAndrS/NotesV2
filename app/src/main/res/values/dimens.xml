@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="notes_default_margin">20dp</dimen>
+    <dimen name="button_corner_radius">30dp</dimen>
+    <dimen name="button_text_size">36sp</dimen>
+    <dimen name="button_remove_text_size">28sp</dimen>
+    <dimen name="button_remove_corner_radius">18sp</dimen>
+    <dimen name="button_add_note">18sp</dimen>
+</resources>
