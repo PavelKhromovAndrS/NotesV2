@@ -8,4 +8,6 @@
     <string name="add_note_name">Введите имя заметки</string>
     <string name="add_note_text">Введите текст заметки</string>
     <string name="button_text">+</string>
+    <string name="toast_add_note">Заметка добавлена</string>
+    <string name="Toast_delete_note">Заметка удалена</string>
 </resources>
