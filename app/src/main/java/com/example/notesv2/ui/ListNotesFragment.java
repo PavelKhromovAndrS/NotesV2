@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 
 public class ListNotesFragment extends Fragment implements NotesListView {
+    public static String ARG_FULL_NOTE = "ARG_FULL_NOTE";
 
     private LinearLayout notesListRoot;
 
@@ -47,7 +48,7 @@ public class ListNotesFragment extends Fragment implements NotesListView {
             public void onClick(View view) {
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_view, new AddNoteFragment())
-                        .addToBackStack("")
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -59,6 +60,19 @@ public class ListNotesFragment extends Fragment implements NotesListView {
         for (Note note : notes) {
             View noteView = LayoutInflater.from(requireContext()).inflate(R.layout.item_note, notesListRoot, false);
             Button removeButton = noteView.findViewById(R.id.remove_button);
+            noteView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FullNoteFragment fullNoteFragment = new FullNoteFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(ARG_FULL_NOTE, note);
+                    fullNoteFragment.setArguments(bundle);
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container_view, fullNoteFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
