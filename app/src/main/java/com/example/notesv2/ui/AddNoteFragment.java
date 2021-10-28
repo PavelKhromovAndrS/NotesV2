@@ -40,9 +40,7 @@ public class AddNoteFragment extends Fragment {
             public void onClick(View view) {
                 Toast.makeText(getActivity(), R.string.toast_add_note, Toast.LENGTH_SHORT).show();
 
-                RepositoryImp.getInstance()
-                        .getNotes()
-                        .add(new Note(noteName.getText().toString(), noteText.getText().toString()));
+                RepositoryImp.getInstance().addNotes(new Note(noteName.getText().toString(), noteText.getText().toString()));
 
                 getParentFragmentManager().popBackStack();
 

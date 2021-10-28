@@ -3,8 +3,8 @@
     <dimen name="notes_default_margin">20sp</dimen>
     <dimen name="button_corner_radius">30sp</dimen>
     <dimen name="button_text_size">36sp</dimen>
-    <dimen name="button_remove_text_size">28sp</dimen>
-    <dimen name="button_remove_corner_radius">18sp</dimen>
+    <dimen name="button_remove_text_size">18sp</dimen>
+    <dimen name="button_remove_corner_radius">25sp</dimen>
     <dimen name="button_add_note">18sp</dimen>
     <dimen name="text_note_name">24sp</dimen>
     <dimen name="text_note_text">18sp</dimen>
@@ -12,6 +12,9 @@
     <dimen name="border_height">2sp</dimen>
     <dimen name="textview_width">0sp</dimen>
     <dimen name="textview_notename_height">32sp</dimen>
-    <dimen name="textview_note_text_height">24sp</dimen>
+    <dimen name="textview_note_text_height">46sp</dimen>
     <dimen name="button_plus_width">60sp</dimen>
+    <dimen name="edit_text_name_of_note_text_size">24sp</dimen>
+    <dimen name="card_view_margin">5sp</dimen>
+    <dimen name="layout_margin">10sp</dimen>
 </resources>
