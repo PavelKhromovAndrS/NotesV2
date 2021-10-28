@@ -11,4 +11,9 @@
     <string name="toast_add_note">Заметка добавлена</string>
     <string name="Toast_delete_note">Заметка удалена</string>
     <string name="button_remove_text">X</string>
+    <string name="search_title">Поиск</string>
+    <string name="settings_title">Настройки</string>
+    <string name="all_notes_title">Все заметки</string>
+    <string name="toast_search">Здесь будет раздел поиска</string>
+    <string name="toast_settings">Здесь будет раздел настроек</string>
 </resources>
