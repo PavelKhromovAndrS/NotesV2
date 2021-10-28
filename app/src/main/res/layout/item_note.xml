@@ -18,12 +18,22 @@
     <TextView
         android:id="@+id/note_text"
         android:layout_width="@dimen/textview_width"
-        android:layout_height="@dimen/textview_notetext_height"
+        android:layout_height="@dimen/textview_note_text_height"
         android:layout_margin="@dimen/notes_default_margin"
         android:textSize="@dimen/text_note_text"
         app:layout_constraintEnd_toStartOf="@id/remove_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/note_name" />
+
+    <TextView
+        android:id="@+id/note_date"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/textview_note_text_height"
+        android:textSize="@dimen/text_note_text"
+        app:layout_constraintBottom_toTopOf="@id/border_line"
+        app:layout_constraintEnd_toEndOf="@id/remove_button"
+        app:layout_constraintStart_toStartOf="@id/remove_button"
+        app:layout_constraintTop_toBottomOf="@id/remove_button" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/remove_button"
@@ -31,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/notes_default_margin"
         android:backgroundTint="@color/button_color"
-        android:text="X"
+        android:text="@string/button_remove_text"
         android:textSize="@dimen/button_remove_text_size"
         app:cornerRadius="@dimen/button_remove_corner_radius"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +49,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/border_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/border_height"
         android:layout_margin="@dimen/border_margin"

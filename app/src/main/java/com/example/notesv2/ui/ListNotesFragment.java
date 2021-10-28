@@ -18,7 +18,11 @@ import com.example.notesv2.R;
 import com.example.notesv2.domain.Note;
 import com.example.notesv2.domain.RepositoryImp;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class ListNotesFragment extends Fragment implements NotesListView {
@@ -60,6 +64,7 @@ public class ListNotesFragment extends Fragment implements NotesListView {
         for (Note note : notes) {
             View noteView = LayoutInflater.from(requireContext()).inflate(R.layout.item_note, notesListRoot, false);
             Button removeButton = noteView.findViewById(R.id.remove_button);
+
             noteView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -73,6 +78,7 @@ public class ListNotesFragment extends Fragment implements NotesListView {
                             .commit();
                 }
             });
+
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -81,6 +87,14 @@ public class ListNotesFragment extends Fragment implements NotesListView {
                     notes.remove(note);
                 }
             });
+
+            Date currentDate = new Date();
+
+            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+            String dateText = dateFormat.format(currentDate);
+
+            TextView noteDate = noteView.findViewById(R.id.note_date);
+            noteDate.setText(dateText);
 
             TextView noteName = noteView.findViewById(R.id.note_name);
             noteName.setText(note.getName());
