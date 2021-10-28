@@ -87,13 +87,8 @@ public class ListNotesFragment extends Fragment implements NotesListView {
                 }
             });
 
-            Date currentDate = new Date();
-
-            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-            String dateText = dateFormat.format(currentDate);
-
             TextView noteDate = noteView.findViewById(R.id.note_date);
-            noteDate.setText(dateText);
+            noteDate.setText(dateFormat());
 
             TextView noteName = noteView.findViewById(R.id.note_name);
             noteName.setText(note.getName());
@@ -103,5 +98,11 @@ public class ListNotesFragment extends Fragment implements NotesListView {
 
             notesListRoot.addView(noteView);
         }
+    }
+
+    public String dateFormat() {
+        Date currentDate = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        return dateFormat.format(currentDate);
     }
 }
