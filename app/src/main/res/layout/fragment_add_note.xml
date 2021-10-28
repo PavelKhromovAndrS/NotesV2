@@ -1,47 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="50sp"
-    android:orientation="vertical"
-    tools:context=".ui.AddNoteFragment">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/button_note_name"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/notes_default_margin"
-        android:fontFamily="monospace"
-        android:hint="@string/add_note_name"
-        android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@id/button_note_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="50sp"
+        android:orientation="vertical"
+        tools:context=".ui.AddNoteFragment">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/button_note_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/notes_default_margin"
-        android:hint="@string/add_note_text"
-        android:textAlignment="textStart"
-        app:layout_constraintBottom_toTopOf="@id/btn_add_note"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/button_note_name" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/button_note_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/notes_default_margin"
+            android:fontFamily="monospace"
+            android:hint="@string/add_note_name"
+            android:singleLine="true"
+            app:layout_constraintBottom_toTopOf="@id/button_note_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_add_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/notes_default_margin"
-        android:text="@string/button_text"
-        android:textSize="@dimen/button_corner_radius"
-        app:cornerRadius="@dimen/button_corner_radius"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_note_text" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/button_note_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/notes_default_margin"
+            android:hint="@string/add_note_text"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toTopOf="@id/btn_add_note"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/button_note_name" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/notes_default_margin"
+            android:text="@string/button_text"
+            android:textSize="@dimen/button_corner_radius"
+            app:cornerRadius="@dimen/button_corner_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_note_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

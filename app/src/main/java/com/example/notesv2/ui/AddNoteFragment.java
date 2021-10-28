@@ -44,6 +44,8 @@ public class AddNoteFragment extends Fragment {
                         .getNotes()
                         .add(new Note(noteName.getText().toString(), noteText.getText().toString()));
 
+                getParentFragmentManager().popBackStack();
+
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_view, new ListNotesFragment())
                         .commit();

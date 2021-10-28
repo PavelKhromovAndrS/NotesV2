@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/NotesV2/app/src/main/res/layout/activity_main.xml" value="0.22282608695652173" />
-        <entry key="..\:/NotesV2/app/src/main/res/layout/fragment_add_note.xml" value="0.33" />
+        <entry key="..\:/NotesV2/app/src/main/res/layout/fragment_add_note.xml" value="0.22282608695652173" />
+        <entry key="..\:/NotesV2/app/src/main/res/layout/fragment_full_note.xml" value="0.348731884057971" />
         <entry key="..\:/NotesV2/app/src/main/res/layout/fragment_list_notes.xml" value="0.33" />
         <entry key="..\:/NotesV2/app/src/main/res/layout/item_note.xml" value="0.25" />
       </map>
