@@ -1,9 +1,10 @@
 package com.example.notesv2.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,10 +19,17 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String MAIN_FRAGMENT = "MAIN_FRAGMENT";
+
+    ListNotesFragment listNotesFragment = new ListNotesFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_view, listNotesFragment, MAIN_FRAGMENT)
+                .commit();
 
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -30,10 +38,35 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                if (listNotesFragment != null && listNotesFragment.isVisible()) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Выход")
+                            .setMessage("Вы действительно хотите выйти?")
+                            .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .setCancelable(false)
+                            .show();
+
+                } else {
+                    onBackPressed();
+                }
+
             }
         });
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_all_notes);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -41,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.fragment_container_view, new ListNotesFragment())
+                            .replace(R.id.fragment_container_view, listNotesFragment)
                             .commit();
 
                     return true;

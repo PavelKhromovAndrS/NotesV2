@@ -17,6 +17,8 @@ import com.example.notesv2.R;
 import com.example.notesv2.domain.Note;
 import com.example.notesv2.domain.RepositoryImp;
 
+import java.util.Objects;
+
 
 public class AddNoteFragment extends Fragment {
 
@@ -45,7 +47,8 @@ public class AddNoteFragment extends Fragment {
                 getParentFragmentManager().popBackStack();
 
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_view, new ListNotesFragment())
+                        .replace(R.id.fragment_container_view, Objects.requireNonNull(getParentFragmentManager()
+                                .findFragmentByTag(MainActivity.MAIN_FRAGMENT)))
                         .commit();
             }
         });

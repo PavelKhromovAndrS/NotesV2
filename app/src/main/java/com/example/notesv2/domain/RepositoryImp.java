@@ -1,7 +1,6 @@
 package com.example.notesv2.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RepositoryImp implements Repository {
     private static RepositoryImp instance;
