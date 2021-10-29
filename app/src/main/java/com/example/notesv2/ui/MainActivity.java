@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
                     new AlertDialog.Builder(MainActivity.this)
                             .setTitle("Выход")
                             .setMessage("Вы действительно хотите выйти?")
-                            // .setIcon(R.drawable.ic_baseline_add_24)
-                            .setPositiveButton("ДА", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     finish();

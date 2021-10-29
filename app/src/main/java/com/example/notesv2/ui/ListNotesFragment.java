@@ -1,9 +1,11 @@
 package com.example.notesv2.ui;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -81,9 +83,26 @@ public class ListNotesFragment extends Fragment implements NotesListView {
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getActivity(), R.string.Toast_delete_note, Toast.LENGTH_SHORT).show();
-                    ((LinearLayout) noteView.getParent()).removeView(noteView);
-                    notes.remove(note);
+                    new AlertDialog.Builder(requireContext())
+                            .setTitle("Удаление заметки")
+                            .setMessage("Вы действительно хотите удалить даннную заметку?")
+                            .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(getActivity(), R.string.Toast_delete_note, Toast.LENGTH_SHORT).show();
+                                    ((LinearLayout) noteView.getParent()).removeView(noteView);
+                                    notes.remove(note);
+                                }
+                            })
+                            .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .setCancelable(false)
+                            .show();
+
                 }
             });
 
