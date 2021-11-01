@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.notesv2.R;
 import com.example.notesv2.domain.Note;
+import com.example.notesv2.domain.NotesAdapter;
 import com.example.notesv2.domain.RepositoryImp;
 
 import java.util.Objects;
@@ -22,10 +23,17 @@ import java.util.Objects;
 
 public class AddNoteFragment extends Fragment {
 
+    NotesAdapter notesAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notesAdapter = new NotesAdapter();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_note, container, false);
     }
 
@@ -37,20 +45,14 @@ public class AddNoteFragment extends Fragment {
         EditText noteName = view.findViewById(R.id.button_note_name);
         EditText noteText = view.findViewById(R.id.button_note_text);
 
-        addNoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), R.string.toast_add_note, Toast.LENGTH_SHORT).show();
+        addNoteButton.setOnClickListener(view1 -> {
+            Toast.makeText(getActivity(), R.string.toast_add_note, Toast.LENGTH_SHORT).show();
 
-                RepositoryImp.getInstance().addNotes(new Note(noteName.getText().toString(), noteText.getText().toString()));
+            notesAdapter.addNotes(new Note(noteName.getText().toString(), noteText.getText().toString()));
 
-                getParentFragmentManager().popBackStack();
-
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_view, Objects.requireNonNull(getParentFragmentManager()
-                                .findFragmentByTag(MainActivity.MAIN_FRAGMENT)))
-                        .commit();
-            }
+            getParentFragmentManager().popBackStack();
+            getParentFragmentManager().beginTransaction()
+                    .remove(AddNoteFragment.this);
         });
     }
 }
