@@ -1,127 +1,71 @@
 package com.example.notesv2.ui;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.notesv2.R;
-import com.example.notesv2.domain.Note;
-import com.example.notesv2.domain.RepositoryImp;
+import com.example.notesv2.domain.NotesAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 
-public class ListNotesFragment extends Fragment implements NotesListView {
+public class ListNotesFragment extends Fragment {
+
     public static String ARG_FULL_NOTE = "ARG_FULL_NOTE";
 
-    private LinearLayout notesListRoot;
+    private NotesAdapter notesAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        notesAdapter = new NotesAdapter();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_list_notes, container, false);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        notesListRoot = view.findViewById(R.id.notes_list_root);
-        Button plusButton = view.findViewById(R.id.plus_button);
+        RecyclerView notesListRoot = view.findViewById(R.id.notes_list_root);
 
-        showNotes(RepositoryImp.getInstance().getNotes());
+        notesListRoot.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
+        notesListRoot.setAdapter(notesAdapter);
 
-        plusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_view, new AddNoteFragment())
-                        .addToBackStack(null)
-                        .commit();
-            }
+        notesAdapter.setNoteClicked(note -> {
+            FullNoteFragment fullNoteFragment = new FullNoteFragment();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(ARG_FULL_NOTE, note);
+            fullNoteFragment.setArguments(bundle);
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_view, fullNoteFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
+        Button plusButton = view.findViewById(R.id.plus_button);
+
+        plusButton.setOnClickListener(view1 -> getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_view, new AddNoteFragment())
+                .addToBackStack(null)
+                .commit());
     }
 
-    @Override
-    public void showNotes(ArrayList<Note> notes) {
-        for (Note note : notes) {
-            View noteView = LayoutInflater.from(requireContext()).inflate(R.layout.item_note, notesListRoot, false);
-            Button removeButton = noteView.findViewById(R.id.remove_button);
-
-            noteView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    FullNoteFragment fullNoteFragment = new FullNoteFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable(ARG_FULL_NOTE, note);
-                    fullNoteFragment.setArguments(bundle);
-                    getParentFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container_view, fullNoteFragment)
-                            .addToBackStack(null)
-                            .commit();
-                }
-            });
-
-            removeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    new AlertDialog.Builder(requireContext())
-                            .setTitle("Удаление заметки")
-                            .setMessage("Вы действительно хотите удалить даннную заметку?")
-                            .setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(getActivity(), R.string.Toast_delete_note, Toast.LENGTH_SHORT).show();
-                                    ((LinearLayout) noteView.getParent()).removeView(noteView);
-                                    notes.remove(note);
-                                }
-                            })
-                            .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .setCancelable(false)
-                            .show();
-
-                }
-            });
-
-            TextView noteDate = noteView.findViewById(R.id.note_date);
-            noteDate.setText(dateFormat());
-
-            TextView noteName = noteView.findViewById(R.id.note_name);
-            noteName.setText(note.getName());
-
-            TextView noteText = noteView.findViewById(R.id.note_text);
-            noteText.setText(note.getText());
-
-            notesListRoot.addView(noteView);
-        }
-    }
-
-    public String dateFormat() {
-        Date currentDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-        return dateFormat.format(currentDate);
-    }
 }

@@ -19,9 +19,4 @@ public class RepositoryImp implements Repository {
     public ArrayList<Note> getNotes() {
         return noteData;
     }
-
-    public void addNotes(Note note) {
-        noteData.add(note);
-    }
-
 }
