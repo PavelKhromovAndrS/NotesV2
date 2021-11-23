@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.notesv2.R;
 import com.example.notesv2.domain.Note;
-import com.google.android.material.appbar.MaterialToolbar;
 
 public class FullNoteFragment extends Fragment {
 
@@ -35,6 +34,5 @@ public class FullNoteFragment extends Fragment {
             fullNoteName.setText(note.getName());
             fullNoteText.setText(note.getText());
         }
-
     }
 }

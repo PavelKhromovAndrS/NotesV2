@@ -16,4 +16,13 @@
     <string name="all_notes_title">Все заметки</string>
     <string name="toast_search">Здесь будет раздел поиска</string>
     <string name="toast_settings">Здесь будет раздел настроек</string>
+    <string name="dialog_exit">Выход</string>
+    <string name="dialog_question_exit">Вы действительно хотите выйти?</string>
+    <string name="dialog_yes">Да</string>
+    <string name="dialog_no">Нет</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete note</string>
+    <string name="toast_delete_note">Заметка удалена</string>
+    <string name="toast_update_note">Заметка обновлена</string>
+    <string name="button_save_change_note">Сохранить изменения</string>
 </resources>

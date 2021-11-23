@@ -7,7 +7,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.FractionRes;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notesv2.R;
@@ -15,13 +17,38 @@ import com.example.notesv2.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
 
+    private final ArrayList<Note> notes = new ArrayList<>();
+
+    private final Fragment fragment;
+
+    public NotesAdapter(Fragment fragment) {
+        this.fragment = fragment;
+    }
+
     public interface OnNoteClicked {
         void onNoteClicked(Note note);
+
+        void onNoteLongClicked(View itemView, Note note);
+    }
+
+    public interface OnButtonDeleteClicked {
+        void onDeleteButtonClicked(Note note);
+    }
+
+    private OnButtonDeleteClicked onButtonDeleteClicked;
+
+    public OnButtonDeleteClicked getOnButtonDeleteClicked() {
+        return onButtonDeleteClicked;
+    }
+
+    public void setOnButtonDeleteClicked(OnButtonDeleteClicked onButtonDeleteClicked) {
+        this.onButtonDeleteClicked = onButtonDeleteClicked;
     }
 
     private OnNoteClicked noteClicked;
@@ -34,10 +61,33 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         this.noteClicked = noteClicked;
     }
 
-    private final ArrayList<Note> noteData = RepositoryImp.getInstance().getNotes();
+    public void setNotes(Collection<Note> toSet) {
+        notes.clear();
+        notes.addAll(toSet);
+    }
 
     public void addNotes(Note note) {
-        noteData.add(note);
+        notes.add(note);
+    }
+
+    public int deleteNotes(Note note) {
+        int index = notes.indexOf(note);
+        notes.remove(index);
+        return index;
+    }
+
+    public int updateNote(Note result) {
+        int index = -1;
+
+        for (int i = 0; i < notes.size(); i++) {
+            if (notes.get(i).getId().equals(result.getId())) {
+                index = i;
+                break;
+            }
+        }
+
+        notes.set(index, result);
+        return index;
     }
 
     @NonNull
@@ -50,27 +100,23 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        Note note = noteData.get(position);
+        Note note = notes.get(position);
 
         holder.getName().setText(note.getName());
         holder.getText().setText(note.getText());
         holder.getNoteDate().setText(dateFormat());
-        holder.getRemoveButton().setOnClickListener(view -> {
-            noteData.remove(position);
-            notifyDataSetChanged();
-        });
     }
 
     @Override
     public int getItemCount() {
-        return noteData.size();
+        return notes.size();
     }
 
     class NoteViewHolder extends RecyclerView.ViewHolder {
-        private TextView name;
-        private TextView text;
-        private Button removeButton;
-        private TextView noteDate;
+        private final TextView name;
+        private final TextView text;
+        private final Button removeButton;
+        private final TextView noteDate;
 
 
         public TextView getName() {
@@ -91,9 +137,22 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            fragment.registerForContextMenu(itemView);
+
             itemView.setOnClickListener(view -> {
                 if (getNoteClicked() != null) {
-                    getNoteClicked().onNoteClicked(noteData.get(getAdapterPosition()));
+                    getNoteClicked().onNoteClicked(notes.get(getAdapterPosition()));
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (getNoteClicked() != null) {
+                        getNoteClicked().onNoteLongClicked(v, notes.get(getAdapterPosition()));
+                    }
+                    return true;
                 }
             });
 
@@ -101,6 +160,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             text = itemView.findViewById(R.id.note_text);
             removeButton = itemView.findViewById(R.id.remove_button);
             noteDate = itemView.findViewById(R.id.note_date);
+
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (getOnButtonDeleteClicked() != null) {
+                        getOnButtonDeleteClicked().onDeleteButtonClicked(notes.get(getAdapterPosition()));
+                    }
+                }
+            });
         }
 
     }

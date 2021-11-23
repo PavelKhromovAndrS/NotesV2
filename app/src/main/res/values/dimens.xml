@@ -17,4 +17,6 @@
     <dimen name="edit_text_name_of_note_text_size">24sp</dimen>
     <dimen name="card_view_margin">5sp</dimen>
     <dimen name="layout_margin">10sp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
 </resources>
