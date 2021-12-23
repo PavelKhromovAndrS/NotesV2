@@ -11,7 +11,6 @@
         android:orientation="vertical"
         tools:context=".ui.FullNoteFragment">
 
-
         <TextView
             android:id="@+id/note_full_name"
             android:layout_width="match_parent"
